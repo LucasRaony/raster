@@ -1,4 +1,3 @@
-# raster
-rasterização de primitivas
-## ERA UMA VEZ
- Lucas Raony Alves Galdino
+# Rasterization
+Rasterização de Primitivas
+
