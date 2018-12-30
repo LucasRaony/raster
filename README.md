@@ -1,0 +1,2 @@
+# raster
+rasterização de primitivas
