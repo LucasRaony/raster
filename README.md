@@ -5,13 +5,13 @@ Rasterização de Primitivas
 
 RASTERIZAÇÃO DE PRIMITIVAS
 
-#Introdução
+# Introdução
 
 O objetivo aqui é demonstrar como fazer rasterização de primitivas sem o auxílio dos comandos openGL, com objetivo didático de mostrar como funcionam as coisas "por trás". Toda via, o "não uso" de comandos openGL se dá apenas quando me refiro aos algoritmos de rasterização, a linguagem de programação utilizada será a linguagem C.
 
 O usuário comum não tem acesso à memória de vídeo de um computador, sendo assim, será utilizado um Framework que simula o acesso à essa memória para que possa ser feito a rasterização sem o uso de código openGL.
 
-#Conceitos prévios
+# Conceitos prévios
 
 Para que não haja confusão, é necessário saber antes de tudo, que as coordenadas de um monitor não são as mesmas que as do plano cartesiano.
 
@@ -77,7 +77,7 @@ unsigned int offset(Point point){
 }
 ```
 
-#Rasterizando Pontos
+# Rasterizando Pontos
 
 _FBptr_ é o ponteiro que aponta para o Framebuffer, que é a simulação da memória de vídeo.
 
@@ -102,7 +102,7 @@ COORDENADAS DOS PONTOS
 IMAGEM AQUI
 ```
 
-#Rasterização de Linha
+# Rasterização de Linha
 
 Sabemos que para trançar uma reta é necessário ao menos dois pontos. Usando a equação da reta conseguimos plotar todos os pontos desta reta( ou linha). Dados dois pontos, o próximos pontos serão obtidos apenas acrescentando um ao valor de x.
 
@@ -113,13 +113,13 @@ a = (y1 - y0) / (x1 - x0)
 b = y1 - a * x1
 ```
 
-###EXEMPLO: COORDENADAS DOS PONTOS INICIAIS: P1(0,0); P2(512,512)
+### EXEMPLO: COORDENADAS DOS PONTOS INICIAIS: P1(0,0); P2(512,512)
 
 ```
 IMAGEM AQUI
 ```
 
-#Rasterização de Linha Usando o Algoritmo de Bresenham
+# Rasterização de Linha Usando o Algoritmo de Bresenham
 
 O algoritmo de Bresenham também é conhecido como algoritmo do Ponto Médio, é utilizado para traçar retas de forma incremental, trabalhando apenas com números inteiros. A ideia do algoritmo é bastante simples, ele utiliza a equação implícita da reta como uma função de decisão, para identificar qual o próximo pixel a ser ativado. Esta função é utilizada de forma incremental em cada pixel.
 
@@ -179,7 +179,7 @@ P1(256,0) Cor(255,0,0,0) ; P2(512,256) Cor(0,255,0,0) ; P3(256,0) Cor(0,0,255,0)
 IMAGEM AQUI
 ```
 
-#Interpolação de cores
+# Interpolação de cores
 
 A interpolação trata-se da mudança de cor em um seguimento de reta, que parte da cor do ponto inicial até a cor do ponto final.
 
@@ -191,7 +191,7 @@ _P(u) = (1 - u) p1 + p2_
  
 onde u = (ponto atual) / (quantidade de pontos - 1)
 
-#DIFICULDADES NO PROCESSO:
+# DIFICULDADES NO PROCESSO:
 
 - A primeira tentativa de fazer interpolação não deu certo e as cores ao longo da reta não se alteravam, esse problema ocorria pois a função drawLine apenas desenha linhas entre uma coordenada e outra e coloca cada ponto na tela, dessa forma não interessava qual era a cor da segunda coordenada e a função de interpolação não funcionava, isso foi corrigido criando um array de pontos ( arrayPoint[512] ) e antes de chamar a função de interpolação determinei que a cor do último ponto a ser desenhado deveria ser igual a cor do ponto final, o que pode parecer óbvio, mas o computador não entende como nós, é preciso ensinar a ele o que fazer.
 
@@ -201,7 +201,7 @@ Imagem de como era a primeira versão da função de interpolação de cor abaix
 //IMAGEM AQUI
 ```
 
-#Informações sobre os arquivos:
+# Informações sobre os arquivos:
 
 Os arquivos que compõem o Framework são:
 • definitions.h
@@ -222,7 +222,7 @@ O arquivo _Makefile_ que acompanha o framework é um script para compilação do
 
 _Importante:_ Os únicos arquivos modificados por mim foram o arquivos mygl.h e main.cpp.
 
-#Referências:
+# Referências:
 http://www.univasf.edu.br/~jorge.cavalcanti/comput_graf04_prim_graficas2.pdf
 https://www.codeproject.com/Articles/82091/OpenGL-Color-Interpolation
 Material de aula do Professor Christian
