@@ -1,27 +1,33 @@
-# Rasterization
-Rasterização de Primitivas
-#Introduction
-	The objective of this project is to do rasterization of geometric primitives to simulate access to a Framebuffer using a Framework which possibility this simulation.
+# Autor
+Alnuo: Lucas Raony
+Matrícula:
 
-RASTERIZAÇÃO DE PRIMITIVAS
+## Navegação
 
-# Introdução
+### Introdução
+### Conceitos Prévios
+### Pixel 
+### Rasterizando Pontos
+### Rasterização De Linha
+### Rasterização De Linha Usando O Algoritmo De Bresenham
+### Interpolação De Cores
+### Dificuldades No Processo
+### Informações Sobre Os Arquivos
+### Referências
+
+## Introdução
 
 O objetivo aqui é demonstrar como fazer rasterização de primitivas sem o auxílio dos comandos openGL, com objetivo didático de mostrar como funcionam as coisas "por trás". Toda via, o "não uso" de comandos openGL se dá apenas quando me refiro aos algoritmos de rasterização, a linguagem de programação utilizada será a linguagem C.
 
 O usuário comum não tem acesso à memória de vídeo de um computador, sendo assim, será utilizado um Framework que simula o acesso à essa memória para que possa ser feito a rasterização sem o uso de código openGL.
 
-# Conceitos prévios
+## Conceitos prévios
 
 Para que não haja confusão, é necessário saber antes de tudo, que as coordenadas de um monitor não são as mesmas que as do plano cartesiano.
 
-```
-_No plano cartesiano as coordenadas começam no (0,0) e crescem para cima e para direita, decrescem para esquerda e para baixo._
-```
+No plano cartesiano as coordenadas começam no (0,0) e crescem para cima e para direita, decrescem para esquerda e para baixo.
 
-```
-IMAGEM AQUI
-```
+![grafico](https://github.com/LucasRaony/raster/blob/master/imagens/grafico.png)
 
 Em coordenadas de um monitor é um pouco diferente, ainda temos as coordenadas (x,y), mas é como se olhássemos para o plano cartesiano e ele tivesse girado 90° para a direita.
 
@@ -35,11 +41,11 @@ IMAGEM AQUI
 
 Outra coisa que deve ser ter em mente, é que para se obter cores diferenciadas nós usamos três cores distintas, que são vermelho, verde e azul (RGB - em inglês). Em openGL estas cores variam entre 0 e 1, porém como iremos simular o acesso a memória de vídeo, no nosso Framework as cores variam entre 0 e 255 (o que corresponde a sua intensidade).
 
-_Pixel_ Um pixel é um ponto luminoso na tela e é composto por três canais de cores - Vermelho, Verde e Azul, e mais um canal para tratar a transparência destas cores, chamamos este canal de alpha, compondo um sistema chamado RGBA.
+## Pixel 
 
-```
-IMAGEM AQUI
-```
+Um pixel é um ponto luminoso na tela e é composto por três canais de cores - Vermelho, Verde e Azul, e mais um canal para tratar a transparência destas cores, chamamos este canal de alpha, compondo um sistema chamado RGBA.
+
+![pixel](https://github.com/LucasRaony/raster/blob/master/imagens/Disposi%C3%A7%C3%A3o_Pixel.png)
 
 Os píxeis (sim, a escrita está correta) são representados por uma estrutura, de mesmo modo as cores.
 
@@ -77,7 +83,7 @@ unsigned int offset(Point point){
 }
 ```
 
-# Rasterizando Pontos
+## Rasterizando Pontos
 
 _FBptr_ é o ponteiro que aponta para o Framebuffer, que é a simulação da memória de vídeo.
 
@@ -98,11 +104,9 @@ Obs: foi usado a lupa do Windows para poder ver os pontos mais de perto e depois
 
 COORDENADAS DOS PONTOS
 
-```
-IMAGEM AQUI
-```
+![pontos](https://github.com/LucasRaony/raster/blob/master/imagens/pontosCoordenados.PNG)
 
-# Rasterização de Linha
+## Rasterização de Linha
 
 Sabemos que para trançar uma reta é necessário ao menos dois pontos. Usando a equação da reta conseguimos plotar todos os pontos desta reta( ou linha). Dados dois pontos, o próximos pontos serão obtidos apenas acrescentando um ao valor de x.
 
@@ -115,11 +119,9 @@ b = y1 - a * x1
 
 ### EXEMPLO: COORDENADAS DOS PONTOS INICIAIS: P1(0,0); P2(512,512)
 
-```
-IMAGEM AQUI
-```
+![linha](https://github.com/LucasRaony/raster/blob/master/imagens/linha.jpg)
 
-# Rasterização de Linha Usando o Algoritmo de Bresenham
+## Rasterização de Linha Usando o Algoritmo de Bresenham
 
 O algoritmo de Bresenham também é conhecido como algoritmo do Ponto Médio, é utilizado para traçar retas de forma incremental, trabalhando apenas com números inteiros. A ideia do algoritmo é bastante simples, ele utiliza a equação implícita da reta como uma função de decisão, para identificar qual o próximo pixel a ser ativado. Esta função é utilizada de forma incremental em cada pixel.
 
@@ -138,9 +140,7 @@ Se aplicarmos um ponto na equação implícita e obtivermos zero como resultado,
 
 Seja m = (x0 + 1, y0 + 1/2) o ponto médio entre os pixels (x0 + 1, y0 + 1) e (x0 + 1, y0), iremos utilizar a função de decisão para avaliar qual pixel acender.
 
-```
-IMAGEM AQUI
-```
+![pontoMedio](https://github.com/LucasRaony/raster/blob/master/imagens/PontoM%C3%A9dio.png)
 
 Note que a reta parte do ponto (x0,y0) logo, não existe decisão tomada anteriormente, podemos identificar o nosso valor de decisão aplicando f(x0 + 1, y0 + 1/2) - f (x0, y0).
 
@@ -152,34 +152,26 @@ d = a + b/2
 	
 Após identificar qual pixel ativar através da função de decisão, é necessário verificar qual será o nosso próximo ponto médio, (x0 + 2, y0 + 1/2) ou (x0 + 2, y0 + 3/2).
 
-```
-IMAGEM AQUI
-```
+![escolha_e_ne](https://github.com/LucasRaony/raster/blob/master/imagens/Escolha_e_ne.png)
 
 *Importante:* Esta versão do algoritmo de Bresenham funciona apenas para *0°<= ângulo <=1°*, porém podemos obter retas com outros coeficientes angulares por reflexão, como demonstrado na imagem abaixo:
 
-```
-IMAGEM AQUI
-```
+![octantes](https://github.com/LucasRaony/raster/blob/master/imagens/octantes.png)
 
 Exemplo abaixo da função DrawLine que utiliza o algoritmo de Bresenham com interpolação de cores:
 
 P1(0,0) Cor(255,0,0,0) ; P2(512,512)  Cor(0,0,255,0)
 
-```
-IMAGEM AQUI
-```
+![drawline](https://github.com/LucasRaony/raster/blob/master/imagens/drawline.jpg)
 
 
 Exemplo abaixo da função DrawTriangle que utiliza o algoritmo de Bresenham com interpolação de cores:
 
 P1(256,0) Cor(255,0,0,0) ; P2(512,256) Cor(0,255,0,0) ; P3(256,0) Cor(0,0,255,0)
 
-```
-IMAGEM AQUI
-```
+![drawtriangle](https://github.com/LucasRaony/raster/blob/master/imagens/drawtriangle.jpg)
 
-# Interpolação de cores
+## Interpolação de cores
 
 A interpolação trata-se da mudança de cor em um seguimento de reta, que parte da cor do ponto inicial até a cor do ponto final.
 
@@ -191,24 +183,22 @@ _P(u) = (1 - u) p1 + p2_
  
 onde u = (ponto atual) / (quantidade de pontos - 1)
 
-# DIFICULDADES NO PROCESSO:
+## Dificuldades no processo
 
 - A primeira tentativa de fazer interpolação não deu certo e as cores ao longo da reta não se alteravam, esse problema ocorria pois a função drawLine apenas desenha linhas entre uma coordenada e outra e coloca cada ponto na tela, dessa forma não interessava qual era a cor da segunda coordenada e a função de interpolação não funcionava, isso foi corrigido criando um array de pontos ( arrayPoint[512] ) e antes de chamar a função de interpolação determinei que a cor do último ponto a ser desenhado deveria ser igual a cor do ponto final, o que pode parecer óbvio, mas o computador não entende como nós, é preciso ensinar a ele o que fazer.
 
 Imagem de como era a primeira versão da função de interpolação de cor abaixo:
 
-```
-//IMAGEM AQUI
-```
+![triangle](https://github.com/LucasRaony/raster/blob/master/imagens/triangulo.jpg)
 
-# Informações sobre os arquivos:
+## Informações sobre os arquivos
 
 Os arquivos que compõem o Framework são:
-• definitions.h
-• main.cpp
-• main.h
-• Makefile
-• mygl.h
+* definitions.h
+* main.cpp
+* main.h
+* Makefile
+* mygl.h
 
 O arquivo _definitions.h_ contém a declaração das constantes que determinam a dimensão da tela(resolução) e o ponteiro (FBptr) para o início da memória de vídeo (mais especificamente, o início da região do framebuffer).
 
@@ -222,7 +212,8 @@ O arquivo _Makefile_ que acompanha o framework é um script para compilação do
 
 _Importante:_ Os únicos arquivos modificados por mim foram o arquivos mygl.h e main.cpp.
 
-# Referências:
-http://www.univasf.edu.br/~jorge.cavalcanti/comput_graf04_prim_graficas2.pdf
-https://www.codeproject.com/Articles/82091/OpenGL-Color-Interpolation
-Material de aula do Professor Christian
+# Referências
+
+[Computação Gráfica - Prof. Jorge Cavalcanti](http://www.univasf.edu.br/~jorge.cavalcanti/comput_graf04_prim_graficas2.pdf)
+[OpenGL Color Interpolation](https://www.codeproject.com/Articles/82091/OpenGL-Color-Interpolation)
+[Material de aula do Professor Christian](https://www.escavador.com/sobre/1320441/christian-azambuja-pagot)
