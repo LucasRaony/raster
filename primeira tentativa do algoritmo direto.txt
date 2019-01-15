@@ -1,0 +1,31 @@
+ALGORITMO IMEDIATO
+/*
+Um dos erros que cometi neste primeiro código, foi modificar o 'b' e o 'm' da equação da reta
+constantemente, o que é um erro. Pois o ângulo de uma reta não se altera, nem o seu coeficiente linear.
+Uma vez que são dados os dois pontos dos quais se pretende rasterizar.
+*/
+void algoritmoImediato(Point ponto1, Point ponto2){
+	float m , b;
+	Point ponto = ponto1;
+	
+	
+	if(ponto2.x > ponto.x){
+		do{
+			m = (ponto2.y - ponto1.y)/(ponto2.x - ponto.x);
+			b = ponto.y - (m * ponto.x);
+			ponto.y = round(m * ponto.x + b);
+			putPixel(ponto);
+			ponto.x++;
+		}while(ponto.x < ponto2.x);	
+	}
+	if(ponto2.x <= ponto.x){
+		do{
+			m = (ponto2.y - ponto1.y)/(ponto2.x - ponto.x);
+			b = ponto.y - (m * ponto.x);
+			ponto.y = round(m * ponto.x + b);
+			putPixel(ponto);
+			ponto.x--;
+		}while(ponto.x > ponto2.x);	
+	}
+	
+}
