@@ -68,7 +68,7 @@ typedef struct Color{
 ```
 
 Para encontrar um ponto específico na tela precisamos de suas coordenadas. Você poderia pensar "óbvio, coordenada (x,y) diz onde está o ponto", porém não. Como já sabemos que vamos "acessar" a memória de vídeo para escrever os píxeis, vimos que o pixel possui 4 bytes de memória, então não se pode pensar que ao escrever na posição inicial da memória e logo após escrever na posição inicial mais um, dois pontos na tela estarão sendo escritos.
-	
+    
 A posição do ponto é calculada da seguinte forma:
 
 ```
@@ -91,10 +91,10 @@ _FBptr_ é o ponteiro que aponta para o Framebuffer, que é a simulação da mem
 unsigned char * FBptr;
 
 void putPixel(Point point){
-		FBptr[ offset(point) + 0 ] = point.color.r;
-		FBptr[ offset(point) + 1 ] = point.color.g;
-		FBptr[ offset(point) + 2 ] = point.color.b;
-		FBptr[ offset(point) + 3 ] = point.color.a;
+        FBptr[ offset(point) + 0 ] = point.color.r;
+        FBptr[ offset(point) + 1 ] = point.color.g;
+        FBptr[ offset(point) + 2 ] = point.color.b;
+        FBptr[ offset(point) + 3 ] = point.color.a;
 }
 ```
 
@@ -128,9 +128,9 @@ O algoritmo de Bresenham também é conhecido como algoritmo do Ponto Médio, é
 Desenvolvimento da equação implícita da reta:
 
 ```
-y = a*x + b 			    //Partimos da Equação da Reta
+y = a*x + b                 //Partimos da Equação da Reta
 y = (dy/dx)* x + b
-y * dx = dy * x + b * dx 	    //Multiplicando a equação por dx
+y * dx = dy * x + b * dx        //Multiplicando a equação por dx
 dy * x + (-y * dx) + b * dx = 0 //Igualando a equação a 0
 ```
 
@@ -149,7 +149,7 @@ f (m) - f (inicio) = a + b/2
 Logo, nosso valor de decisão inicial é:
 d = a + b/2
 ```
-	
+    
 Após identificar qual pixel ativar através da função de decisão, é necessário verificar qual será o nosso próximo ponto médio, (x0 + 2, y0 + 1/2) ou (x0 + 2, y0 + 3/2).
 
 ![escolha_e_ne](https://github.com/LucasRaony/raster/blob/master/imagens/Escolha_e_ne.png)
