@@ -31,9 +31,7 @@ No plano cartesiano as coordenadas começam no (0,0) e crescem para cima e para 
 
 Em coordenadas de um monitor é um pouco diferente, ainda temos as coordenadas (x,y), mas é como se olhássemos para o plano cartesiano e ele tivesse girado 90° para a direita.
 
-```
 De forma que as coordenadas em um monitor começam no ponto (0,0) que se encontram no canto superior esquerdo e crescem para baixo e para direita.
-```
 
 ![graficoRotacionado](https://github.com/LucasRaony/raster/blob/master/imagens/graficoRotacionado.png)
 
