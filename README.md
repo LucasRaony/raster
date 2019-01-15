@@ -4,16 +4,16 @@ Matrícula:
 
 ## Navegação
 
-### Introdução
-### Conceitos Prévios
-### Pixel 
-### Rasterizando Pontos
-### Rasterização De Linha
-### Rasterização De Linha Usando O Algoritmo De Bresenham
-### Interpolação De Cores
-### Dificuldades No Processo
-### Informações Sobre Os Arquivos
-### Referências
+* #### [Introdução](https://github.com/LucasRaony/raster/blob/master/README.md#introdu%C3%A7%C3%A3o-1)
+* #### [Conceitos Prévios](https://github.com/LucasRaony/raster/blob/master/README.md#conceitos-pr%C3%A9vios-1)
+* #### [Pixel](https://github.com/LucasRaony/raster/blob/master/README.md#pixel-1)
+* #### [Rasterizando Pontos](https://github.com/LucasRaony/raster/blob/master/README.md#rasterizando-pontos-1)
+* #### [Rasterização De Linha](https://github.com/LucasRaony/raster/blob/master/README.md#rasteriza%C3%A7%C3%A3o-de-linha-1)
+* #### [Rasterização De Linha Usando O Algoritmo De Bresenham](https://github.com/LucasRaony/raster/blob/master/README.md#rasteriza%C3%A7%C3%A3o-de-linha-usando-o-algoritmo-de-bresenham-1)
+* #### [Interpolação De Cores](https://github.com/LucasRaony/raster/blob/master/README.md#interpola%C3%A7%C3%A3o-de-cores-1)
+* #### [Dificuldades No Processo](https://github.com/LucasRaony/raster/blob/master/README.md#dificuldades-no-processo-1)
+* #### [Informações Sobre Os Arquivos](https://github.com/LucasRaony/raster/blob/master/README.md#informa%C3%A7%C3%B5es-sobre-os-arquivos-1)
+* #### [Referências](https://github.com/LucasRaony/raster/blob/master/README.md#refer%C3%AAncias-1)
 
 ## Introdução
 
@@ -177,11 +177,9 @@ A interpolação trata-se da mudança de cor em um seguimento de reta, que parte
 
 A interpolação pode ser calculada através da seguinte equação:
 
-```
 _P(u) = (1 - u) p1 + p2_
-```
- 
-onde u = (ponto atual) / (quantidade de pontos - 1)
+
+onde _u_ = (ponto atual) / (quantidade de pontos - 1)
 
 ## Dificuldades no processo
 
@@ -194,11 +192,11 @@ Imagem de como era a primeira versão da função de interpolação de cor abaix
 ## Informações sobre os arquivos
 
 Os arquivos que compõem o Framework são:
-* definitions.h
-* main.cpp
-* main.h
-* Makefile
-* mygl.h
+* [definitions.h](https://github.com/LucasRaony/raster/blob/master/definitions.h)
+* [main.cpp](https://github.com/LucasRaony/raster/blob/master/main.cpp)
+* [main.h](https://github.com/LucasRaony/raster/blob/master/main.h)
+* [Makefile](https://github.com/LucasRaony/raster/blob/master/Makefile.win)
+* [mygl.h](https://github.com/LucasRaony/raster/blob/master/mygl.h)
 
 O arquivo _definitions.h_ contém a declaração das constantes que determinam a dimensão da tela(resolução) e o ponteiro (FBptr) para o início da memória de vídeo (mais especificamente, o início da região do framebuffer).
 
@@ -212,8 +210,10 @@ O arquivo _Makefile_ que acompanha o framework é um script para compilação do
 
 _Importante:_ Os únicos arquivos modificados por mim foram o arquivos mygl.h e main.cpp.
 
-# Referências
+## Referências
 
 [Computação Gráfica - Prof. Jorge Cavalcanti](http://www.univasf.edu.br/~jorge.cavalcanti/comput_graf04_prim_graficas2.pdf)
+
 [OpenGL Color Interpolation](https://www.codeproject.com/Articles/82091/OpenGL-Color-Interpolation)
+
 [Material de aula do Professor Christian](https://www.escavador.com/sobre/1320441/christian-azambuja-pagot)
