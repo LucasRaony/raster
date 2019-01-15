@@ -35,9 +35,7 @@ Em coordenadas de um monitor é um pouco diferente, ainda temos as coordenadas (
 De forma que as coordenadas em um monitor começam no ponto (0,0) que se encontram no canto superior esquerdo e crescem para baixo e para direita.
 ```
 
-```
-IMAGEM AQUI
-```
+![graficoRotacionado](https://github.com/LucasRaony/raster/blob/master/imagens/graficoRotacionado.png)
 
 Outra coisa que deve ser ter em mente, é que para se obter cores diferenciadas nós usamos três cores distintas, que são vermelho, verde e azul (RGB - em inglês). Em openGL estas cores variam entre 0 e 1, porém como iremos simular o acesso a memória de vídeo, no nosso Framework as cores variam entre 0 e 255 (o que corresponde a sua intensidade).
 
@@ -100,9 +98,7 @@ void putPixel(Point point){
 
 Um exemplo de 4 pontos desenhados na tela
 
-Obs: foi usado a lupa do Windows para poder ver os pontos mais de perto e depois tirei print e cortei a imagem.
-
-COORDENADAS DOS PONTOS
+_Obs: foi usado a lupa do Windows para poder ver os pontos mais de perto e depois tirei print e cortei a imagem._
 
 ![pontos](https://github.com/LucasRaony/raster/blob/master/imagens/pontosCoordenados.PNG)
 
@@ -134,11 +130,11 @@ y * dx = dy * x + b * dx        //Multiplicando a equação por dx
 dy * x + (-y * dx) + b * dx = 0 //Igualando a equação a 0
 ```
 
-_decisão = αx + ßy + c , onde α = dy, ß = -dx, c = b * dx_
+_decisão = αx + ßy + c_ , onde _α = dy, ß = -dx, c = b * dx_
 
 Se aplicarmos um ponto na equação implícita e obtivermos zero como resultado, significa que o ponto está na reta; se obtivermos valores negativos, o ponto está abaixo da reta; se obtivermos valores positivos, o ponto está acima da reta;
 
-Seja m = (x0 + 1, y0 + 1/2) o ponto médio entre os pixels (x0 + 1, y0 + 1) e (x0 + 1, y0), iremos utilizar a função de decisão para avaliar qual pixel acender.
+Seja _m = (x0 + 1, y0 + 1/2)_ o ponto médio entre os pixels _(x0 + 1, y0 + 1)_ e _(x0 + 1, y0)_, iremos utilizar a função de decisão para avaliar qual pixel acender.
 
 ![pontoMedio](https://github.com/LucasRaony/raster/blob/master/imagens/PontoM%C3%A9dio.png)
 
@@ -149,8 +145,8 @@ f (m) - f (inicio) = a + b/2
 Logo, nosso valor de decisão inicial é:
 d = a + b/2
 ```
-    
-Após identificar qual pixel ativar através da função de decisão, é necessário verificar qual será o nosso próximo ponto médio, (x0 + 2, y0 + 1/2) ou (x0 + 2, y0 + 3/2).
+
+Após identificar qual pixel ativar através da função de decisão, é necessário verificar qual será o nosso próximo ponto médio, _(x0 + 2, y0 + 1/2)_ ou _(x0 + 2, y0 + 3/2)_.
 
 ![escolha_e_ne](https://github.com/LucasRaony/raster/blob/master/imagens/Escolha_e_ne.png)
 
@@ -160,14 +156,16 @@ Após identificar qual pixel ativar através da função de decisão, é necess�
 
 Exemplo abaixo da função DrawLine que utiliza o algoritmo de Bresenham com interpolação de cores:
 
-P1(0,0) Cor(255,0,0,0) ; P2(512,512)  Cor(0,0,255,0)
+* P1(0,0) Cor(255,0,0,0)
+* P2(512,512)  Cor(0,0,255,0)
 
 ![drawline](https://github.com/LucasRaony/raster/blob/master/imagens/drawline.jpg)
 
-
 Exemplo abaixo da função DrawTriangle que utiliza o algoritmo de Bresenham com interpolação de cores:
 
-P1(256,0) Cor(255,0,0,0) ; P2(512,256) Cor(0,255,0,0) ; P3(256,0) Cor(0,0,255,0)
+* P1(256,0)   Cor(255,0,0,0)
+* P2(512,256) Cor(0,255,0,0)
+* P3(256,0)   Cor(0,0,255,0)
 
 ![drawtriangle](https://github.com/LucasRaony/raster/blob/master/imagens/drawtriangle.jpg)
 
@@ -179,13 +177,13 @@ A interpolação pode ser calculada através da seguinte equação:
 
 _P(u) = (1 - u) p1 + p2_
 
-onde _u_ = (ponto atual) / (quantidade de pontos - 1)
+onde _u_ = _(ponto atual) / (quantidade de pontos - 1)_
 
 ## Dificuldades no processo
 
-- A primeira tentativa de fazer interpolação não deu certo e as cores ao longo da reta não se alteravam, esse problema ocorria pois a função drawLine apenas desenha linhas entre uma coordenada e outra e coloca cada ponto na tela, dessa forma não interessava qual era a cor da segunda coordenada e a função de interpolação não funcionava, isso foi corrigido criando um array de pontos ( arrayPoint[512] ) e antes de chamar a função de interpolação determinei que a cor do último ponto a ser desenhado deveria ser igual a cor do ponto final, o que pode parecer óbvio, mas o computador não entende como nós, é preciso ensinar a ele o que fazer.
+* A primeira tentativa de fazer interpolação não deu certo e as cores ao longo da reta não se alteravam, esse problema ocorria pois a função drawLine apenas desenha linhas entre uma coordenada e outra e coloca cada ponto na tela, dessa forma não interessava qual era a cor da segunda coordenada e a função de interpolação não funcionava, isso foi corrigido criando um array de pontos ( arrayPoint[512] ) e antes de chamar a função de interpolação determinei que a cor do último ponto a ser desenhado deveria ser igual a cor do ponto final, o que pode parecer óbvio, mas o computador não entende como nós, é preciso ensinar a ele o que fazer.
 
-Imagem de como era a primeira versão da função de interpolação de cor abaixo:
+_Imagem de como era a primeira versão da função de interpolação de cor abaixo:_
 
 ![triangle](https://github.com/LucasRaony/raster/blob/master/imagens/triangulo.jpg)
 
